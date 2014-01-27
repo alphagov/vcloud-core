@@ -11,6 +11,15 @@ module Vcloud
         @id = id
       end
 
+      def self.get_by_name(name)
+        q = Query.new('orgVdcNetwork', :filter => "name==#{name}")
+        unless res = q.get_all_results
+          raise "Error finding orgVdcNetwork by name #{name}"
+        end
+        raise "orgVdcNetwork #{name} not found" unless res.size == 1
+        return self.new(res.first[:href].split('/').last)
+      end
+
       def self.provision(config)
         raise "Must specify a name" unless name = config[:name]
         raise "Must specify a vdc_name" unless vdc_name = config[:vdc_name]

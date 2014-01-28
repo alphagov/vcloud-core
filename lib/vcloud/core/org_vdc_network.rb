@@ -11,12 +11,12 @@ module Vcloud
         @id = id
       end
 
-      def self.get_by_name(name)
-        q = Query.new('orgVdcNetwork', :filter => "name==#{name}")
+      def self.get_by_name_and_vdc_name(name, vdc_name)
+        q = Query.new('orgVdcNetwork', :filter => "name==#{name};vdcName==#{vdc_name}")
         unless res = q.get_all_results
-          raise "Error finding orgVdcNetwork by name #{name}"
+          raise "Error finding orgVdcNetwork by name:#{name} and vdc_name:#{vdc_name}"
         end
-        raise "orgVdcNetwork #{name} not found" unless res.size == 1
+        raise "orgVdcNetwork with name:#{name} and vdc_name:#{vdc_name} not found" unless res.size == 1
         return self.new(res.first[:href].split('/').last)
       end
 

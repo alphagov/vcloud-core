@@ -7,7 +7,7 @@ module Vcloud
       before(:each) do
         @id = 'vappTemplate-12345678-1234-1234-1234-000000234121'
         @mock_fog_interface = StubFogInterface.new
-        Vcloud::Fog::ServiceInterface.stub(:new).and_return(@mock_fog_interface)
+        Vcloud::Core::Fog::ServiceInterface.stub(:new).and_return(@mock_fog_interface)
         @test_config = {
             :catalog => 'test_catalog',
             :catalog_item => 'test_template'
@@ -51,7 +51,7 @@ module Vcloud
         it 'should raise a RuntimeError if there is no template' do
           q_results = [ ]
           mock_query = double(:query_runner)
-          Vcloud::QueryRunner.should_receive(:new).and_return(mock_query)
+          Vcloud::Core::QueryRunner.should_receive(:new).and_return(mock_query)
           mock_query.should_receive(:run).
             with('vAppTemplate', :filter => "name==test_template;catalogName==test_catalog").
             and_return(q_results)
@@ -67,7 +67,7 @@ module Vcloud
               :href => "/vappTemplate-12345678-90ab-cdef-0123-4567890ab002" },
           ]
           mock_query = double(:query_runner)
-          Vcloud::QueryRunner.should_receive(:new).and_return(mock_query)
+          Vcloud::Core::QueryRunner.should_receive(:new).and_return(mock_query)
           mock_query.should_receive(:run).
             with('vAppTemplate', :filter => "name==test_template;catalogName==test_catalog").
             and_return(q_results)
@@ -81,7 +81,7 @@ module Vcloud
               :href => "/vappTemplate-12345678-90ab-cdef-0123-4567890abcde" }
           ]
           mock_query = double(:query)
-          Vcloud::QueryRunner.should_receive(:new).and_return(mock_query)
+          Vcloud::Core::QueryRunner.should_receive(:new).and_return(mock_query)
           mock_query.should_receive(:run).
             with('vAppTemplate', :filter => "name==test_template;catalogName==test_catalog").
             and_return(q_results)

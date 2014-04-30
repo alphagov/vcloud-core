@@ -1,0 +1,5 @@
+require 'fog'
+require 'vcloud/core/fog/content_types'
+require 'vcloud/core/fog/relation'
+require 'vcloud/core/fog/service_interface'
+require 'vcloud/core/fog/model_interface'

@@ -247,4 +247,3 @@ module Vcloud
     end
   end
 end
-

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Vcloud::Query do
+describe Vcloud::Core::Query do
   context "attributes" do
 
     context "#run called with no type set on construction" do
@@ -15,7 +15,7 @@ describe Vcloud::Query do
           ]
         }
 
-        @query = Vcloud::Query.new(nil, {}, query_runner)
+        @query = Vcloud::Core::Query.new(nil, {}, query_runner)
 
         @query.should_receive(:puts).with("alice records,references")
         @query.should_receive(:puts).with("bob   records")
@@ -33,7 +33,7 @@ describe Vcloud::Query do
       end
 
       it "should not output when given tsv output_format" do
-        query = Vcloud::Query.new('bob', {:output_format => 'tsv'}, @query_runner)
+        query = Vcloud::Core::Query.new('bob', {:output_format => 'tsv'}, @query_runner)
 
         query.should_not_receive(:puts)
 
@@ -41,7 +41,7 @@ describe Vcloud::Query do
       end
 
       it "should not output when given csv output_format" do
-        query = Vcloud::Query.new('bob', {:output_format => 'csv'}, @query_runner)
+        query = Vcloud::Core::Query.new('bob', {:output_format => 'csv'}, @query_runner)
 
         query.should_not_receive(:puts)
 
@@ -63,7 +63,7 @@ describe Vcloud::Query do
       end
 
       it "should output a query in tsv when run with a type" do
-        @query = Vcloud::Query.new('bob', {:output_format => 'tsv'}, @query_runner)
+        @query = Vcloud::Core::Query.new('bob', {:output_format => 'tsv'}, @query_runner)
 
         @query.should_receive(:puts).with("field1\tfield2")
         @query.should_receive(:puts).with("Stuff 1\tStuff 2")
@@ -73,7 +73,7 @@ describe Vcloud::Query do
       end
 
       it "should output a query in csv when run with a type" do
-        @query = Vcloud::Query.new('bob', {:output_format => 'csv'}, @query_runner)
+        @query = Vcloud::Core::Query.new('bob', {:output_format => 'csv'}, @query_runner)
 
         @query.should_receive(:puts).with("field1,field2\n")
         @query.should_receive(:puts).with("Stuff 1,Stuff 2\nMore Stuff 1,More Stuff 2\n")

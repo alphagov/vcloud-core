@@ -1,3 +1,9 @@
+## Current (2014-04-30)
+
+Features:
+
+  - Breaking changes to move Vcloud::Query and Vcloud::QueryRunner under Vcloud::Core namespace
+
 ## 0.0.13 (2014-04-30)
 
 Feature:

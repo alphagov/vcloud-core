@@ -6,7 +6,7 @@ describe Vcloud::Core::Query do
     context "#run called with no type set on construction" do
 
       it "should get and reformat query types" do
-        query_runner = double(Vcloud::QueryRunner)
+        query_runner = double(Vcloud::Core::QueryRunner)
         allow(query_runner).to receive(:available_query_types) {
           [
             ['alice', 'references'],
@@ -28,7 +28,7 @@ describe Vcloud::Core::Query do
     context "gracefully handle zero results" do
 
       before(:each) do
-        @query_runner = double(Vcloud::QueryRunner)
+        @query_runner = double(Vcloud::Core::QueryRunner)
         allow(@query_runner).to receive(:run) { {} }
       end
 
@@ -53,7 +53,7 @@ describe Vcloud::Core::Query do
     context "get results with a single response page" do
 
       before(:each) do
-        @query_runner = double(Vcloud::QueryRunner)
+        @query_runner = double(Vcloud::Core::QueryRunner)
         allow(@query_runner).to receive(:run) {
           [
             {:field1 => "Stuff 1", :field2 => "Stuff 2"},

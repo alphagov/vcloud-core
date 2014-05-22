@@ -28,3 +28,9 @@ if ENV['COVERAGE']
     end
   end
 end
+
+RSpec.configure do |c|
+  if ENV['VCLOUD_TOOLS_RSPEC_FAIL_FAST']
+    c.fail_fast = true
+  end
+end

@@ -13,7 +13,15 @@ module Vcloud
           end
 
           def token_export(*args)
-            return "export #{Vcloud::Core::Fog::TOKEN_ENV_VAR_NAME}=#{token(*args)}"
+            key   = Vcloud::Core::Fog::TOKEN_ENV_VAR_NAME
+            value = token(*args)
+
+            return case `ps -p $$ -o ucomm=`
+                     when 'fish'
+                       "set -x #{key} #{value}"
+                     else
+                       "export #{key}=#{value}"
+                   end
           end
 
           private

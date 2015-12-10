@@ -6,7 +6,6 @@ module Vcloud
       module Login
         class << self
           def token(pass)
-            Vcloud::Core::Fog.check_credentials
             token = get_token(pass)
 
             return token

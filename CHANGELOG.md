@@ -1,6 +1,7 @@
 ## Unreleased
 
   - Remove support for Ruby 1.9.3, which is now end-of-life.
+  - Reverted changes made in 0.11.0
 
 ## 1.2.0 (2015-09-10)
 

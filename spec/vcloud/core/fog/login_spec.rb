@@ -4,6 +4,7 @@ require 'stringio'
 describe Vcloud::Core::Fog::Login do
   describe "#token" do
     it "should return the output from get_token" do
+      expect(subject).to receive(:check_plaintext_pass)
       expect(subject).to receive(:get_token).and_return('mekmitasdigoat')
       expect(subject.token('supersekret')).to eq("mekmitasdigoat")
     end
@@ -39,7 +40,7 @@ describe Vcloud::Core::Fog::Login do
         expect(subject).to_not receive(:get_token)
         expect { subject.token('supersekret') }.to raise_error(
           RuntimeError,
-          "Found plaintext vcloud_director_password entry. Please set it to an empty string as storing passwords in plaintext is insecure. See http://gds-operations.github.io/vcloud-tools/usage/ for further information."
+          "Found plaintext vcloud_director_password entry. Please set it to an empty string"
         )
       end
     end

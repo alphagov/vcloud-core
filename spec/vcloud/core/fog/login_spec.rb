@@ -10,9 +10,20 @@ describe Vcloud::Core::Fog::Login do
   end
 
   describe "#token_export" do
-    it "should call #token with pass arg and return shell export string" do
-      expect(subject).to receive(:token).with('supersekret').and_return('mekmitasdigoat')
-      expect(subject.token_export("supersekret")).to eq("export FOG_VCLOUD_TOKEN=mekmitasdigoat")
+    context "when called from a POSIX shell" do
+      it "should call #token with pass arg and returns POSIX shell export string" do
+        expect(subject).to receive(:`).with('ps -p $$ -o ucomm=').and_return('bash')
+        expect(subject).to receive(:token).with('supersekret').and_return('mekmitasdigoat')
+        expect(subject.token_export("supersekret")).to eq("export FOG_VCLOUD_TOKEN=mekmitasdigoat")
+      end
+    end
+
+    context "when called from a fish shell" do
+      it "should call #token with pass arg and returns fish shell export string" do
+        expect(subject).to receive(:`).with('ps -p $$ -o ucomm=').and_return('fish')
+        expect(subject).to receive(:token).with('supersekret').and_return('mekmitasdigoat')
+        expect(subject.token_export("supersekret")).to eq("set -x FOG_VCLOUD_TOKEN mekmitasdigoat")
+      end
     end
   end
 
